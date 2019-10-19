@@ -15,7 +15,7 @@ class MultiKellyBettor:
     prop : a dictionary with the key being the competitor label and 
            the value being the proportion of the whole capital to bet on
 
-    reference
+    Reference
     ---------
     1. https://www.sportsbookreview.com/picks/tools/kelly-calculator/
     2. https://www.sportsbookreview.com/forum/handicapper-think-tank/29624-simultaneous-event-kelly-calculator-beta.html
@@ -70,5 +70,5 @@ if __name__ == '__main__':
                            prob = [0.592, 0.285, 0.123], 
                            label = ['horse1', 'horse2', 'horse3'])
     prop = mkb.transform()
-    print(prop) 				#{'horse1': 0.207625, 'horse2': 0.07359374999999999, 'horse3': 0.0}
-    print(sum(prop.values())) 	#total_prop : 0.28121874999999996
+    print(prop)                 #{'horse1': 0.207625, 'horse2': 0.07359374999999999, 'horse3': 0.0}
+    print(sum(prop.values()))   #total_prop : 0.28121874999999996
