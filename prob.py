@@ -47,7 +47,8 @@ class ProbProber:
         dim = len(self.wos)
         
         if self.p_i is None:
-            self.p_i = np.power(self.wos, self.c[0]) / np.power(self.wos, self.c[0]).sum()
+            nppow = np.power(self.wos, self.c[0])
+            self.p_i = nppow / nppow.sum()
         
         if pool == 'win':
             return self.p_i
@@ -55,7 +56,8 @@ class ProbProber:
         self._check_dim(dim, 2)
         
         if self.p_ij is None:
-            p_i2 = np.power(self.wos, self.c[1]) / np.power(self.wos, self.c[1]).sum()
+            nppow = np.power(self.wos, self.c[1])
+            p_i2 =  nppow / nppow.sum()
             self.p_ij = p_i2.reshape(-1, 1) * (self.p_i / (1 - p_i2))
             self.p_ij[np.diag_indices(dim, ndim = 2)] = 0
             
@@ -65,7 +67,8 @@ class ProbProber:
         self._check_dim(dim, 3)
 
         if self.p_ijk is None: 
-            p_i3 = np.power(self.wos, self.c[2]) / np.power(self.wos, self.c[2]).sum()
+            nppow = np.power(self.wos, self.c[2])
+            p_i3 =  nppow / nppow.sum()
             comp = np.tile(p_i3.reshape(-1, 1), dim)
             comp = 1 - comp - comp.T
             comp = np.divide(self.p_ij, comp, where = comp != 0)
@@ -123,9 +126,7 @@ if __name__ == '__main__':
     pp = ProbProber(w_p) #winning probabilities and win odds are both ok
 
     place_p = ProbProber(w_p).transform(pool = 'place')
-    # z = [0.34850021, 0.59536643, 0.59536643, 0.18543271, 0.18543271, 0.7414013 , 0.34850021]
-    print(place_p)
+    print(place_p) # place_p = [0.34850021, 0.59536643, 0.59536643, 0.18543271, 0.18543271, 0.7414013 , 0.34850021]
     tierce_p = ProbProber(w_p).transform(pool = 'tierce')
     tierce_p126 = tierce_p[1, 2, 6]
-    #tierce_p126 = 0.008333333333333326, the proba of horse1, 2 and 6 are respectively in the 1st, 2nd, 3rd place
-    print(tierce_p126)
+    print(tierce_p126) #tierce_p126 = 0.008333333333333326, the proba of horse1, 2 and 6 are respectively in the 1st, 2nd, 3rd place
