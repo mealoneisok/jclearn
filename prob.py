@@ -97,7 +97,8 @@ class ProbProber:
         self._check_dim(dim, 4)
         
         if self.p_ijkl is None:
-            p_i4 = np.power(self.wos, self.c[3]) / np.power(self.wos, self.c[3]).sum()
+            nppow = np.power(self.wos, self.c[3])
+            p_i4 = nppow / nppow.sum()
             comp = np.tile(p_i4, (dim, dim, 1))
             comp = 1 - comp - comp.T - comp.transpose([0, 2, 1])
             comp = np.divide(self.p_ijk, comp, where = comp != 0)
